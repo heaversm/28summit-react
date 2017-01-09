@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-
-
-
+import Carousel from 'nuka-carousel'; //http://kenwheeler.github.io/nuka-carousel/#/
 
 const appData = {
   address: {
@@ -16,12 +14,21 @@ const appData = {
     { name: 'Virtual Tour'},
     { name: 'Contact'}
   ],
+
+  carouselItems: [
+    { name: '1', image: 'http://placehold.it/1000x400/ffffff/c0392b/&text=slide1'},
+    { name: '2', image: 'http://placehold.it/1000x400/ffffff/c0392b/&text=slide1'},
+    { name: '3', image: 'http://placehold.it/1000x400/ffffff/c0392b/&text=slide1'},
+    { name: '4', image: 'http://placehold.it/1000x400/ffffff/c0392b/&text=slide1'},
+    { name: '5', image: 'http://placehold.it/1000x400/ffffff/c0392b/&text=slide1'},
+    { name: '6', image: 'http://placehold.it/1000x400/ffffff/c0392b/&text=slide1'}
+  ],
+
   copy: {
     title: '28 Summit',
     subtitle: 'Modern living with upstate lakeside charm'
   }
 }
-
 
 function AppHeader(props) {
   return (
@@ -51,15 +58,36 @@ function AppMenu(props) {
   );
 }
 
+function AppCarouselItem(props){
+  return <img data-id={props.name} className="carousel-item-image" role="presentation" src={props.image} />;
+}
+
+class MainCarousel extends Component {
+  mixins: [Carousel.ControllerMixin];
+
+  render() {
+    const carouselItems = appData.carouselItems.map((carouselItem) =>
+    <AppCarouselItem key={carouselItem.name.toLowerCase()} name={carouselItem.name} image={carouselItem.image} />
+    );
+    return (
+      <div className="App-carousel">
+        <Carousel>
+          {carouselItems}
+        </Carousel>
+      </div>
+    );
+  }
+}
+
 class App extends Component {
+
+
   render() {
     return (
       <div className="App">
         <AppHeader />
         <AppMenu />
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <MainCarousel/>
       </div>
     );
   }
