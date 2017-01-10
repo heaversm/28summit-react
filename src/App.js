@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import Carousel from 'nuka-carousel'; //http://kenwheeler.github.io/nuka-carousel/#/
 
+//DATA
+
 const appData = {
   address: {
     street: '28 Summit',
@@ -16,19 +18,76 @@ const appData = {
   ],
 
   carouselItems: [
-    { name: '1', image: 'http://placehold.it/1000x400/ffffff/c0392b/&text=slide1'},
-    { name: '2', image: 'http://placehold.it/1000x400/ffffff/c0392b/&text=slide1'},
-    { name: '3', image: 'http://placehold.it/1000x400/ffffff/c0392b/&text=slide1'},
-    { name: '4', image: 'http://placehold.it/1000x400/ffffff/c0392b/&text=slide1'},
-    { name: '5', image: 'http://placehold.it/1000x400/ffffff/c0392b/&text=slide1'},
-    { name: '6', image: 'http://placehold.it/1000x400/ffffff/c0392b/&text=slide1'}
+    { name: '1', image: '/images/carousel/bedroom.jpg'},
+    { name: '2', image: '/images/carousel/loft.jpg'},
+    { name: '3', image: '/images/carousel/swing.jpg'},
+    { name: '4', image: '/images/carousel/shed-yard.jpg'},
+    { name: '5', image: '/images/carousel/firepit.jpg'}
   ],
 
   copy: {
     title: '28 Summit',
-    subtitle: 'Modern living with upstate lakeside charm'
+    subtitle: 'Modern living with upstate lakeside charm',
+    details: {
+      title: 'Home Details',
+      sections: [
+        { name: 'the main house',
+          details: [
+            '2 bedroom, 2 bath',
+            '1450 sq. ft of finished space',
+            'Single car garage with washer dryer',
+            'Huge lofted second level could accommodate extra bedroom',
+            'Radiant Heat, Wood Floors, & Wood Stove',
+            'Cathedral ceilings & abundant skylights',
+            'Warming room and upstairs rear deck'
+          ]
+        },
+        { name: 'the guest shed',
+          details: [
+            'Day bed & loft bed',
+            'Plenty of windows',
+            'Heated, private outdoor shower',
+            'Deck and fire pit'
+          ]
+        },
+        { name: 'the grounds',
+          details: [
+            '13,000 sq. ft (~.29 acres)',
+            'Shady fenced in back yard for pets & kids',
+            'Picnic area and private side yard',
+            'Privacy fences and shrubs around entire lot',
+            'Vegetable garden',
+            'Views of Summit Reservoir and Summit Mill'
+          ]
+        },
+        { name: 'the area',
+          details: [
+            'Just above High Falls (swimming & hiking)',
+            '~2 hours to NYC via train or car',
+            '5 min. to Hawthorne Valley Waldorf School & Farm Store',
+            '15 min. from charming towns like Hudson, Chatham & Hillsdale',
+            '20 min. to Catamount ski area or the Hudson River'
+          ]
+        }
+      ]
+    },
+    tour: {
+      title: 'Virtual Tour',
+      description: 'click the model below to begin interaction',
+      model: 'https://3dwarehouse.sketchup.com/embed.html?mid=b49d60e2-08f9-4240-8e3d-83d3e245f915&width=1200&height=480',
+      scene: 'https://3dwarehouse.sketchup.com/embed.html?mid=c25e3b04-8de0-4743-9bb0-9b7940b8f59a&width=1200&height=480'
+    },
+    contact: {
+      title: 'Contact',
+      description: 'We would love to show you the house. Get in touch with us in order to schedule a viewing or learn about the next open house.',
+      email: 'palomacmedina@gmail.com',
+      phone: '503-453-0172',
+      tel: '+15034530172'
+    }
   }
 }
+
+//HEADER
 
 function AppHeader(props) {
   return (
@@ -38,6 +97,9 @@ function AppHeader(props) {
     </div>
   );
 }
+
+//MENU
+
 
 function AppMenuItem(props){
   return <li className="App-menu-item"><a className="App-menu-link" href={props.name.toLowerCase()}>{props.name}</a></li>;
@@ -58,6 +120,9 @@ function AppMenu(props) {
   );
 }
 
+
+//CAROUSEL
+
 function AppCarouselItem(props){
   return <img data-id={props.name} className="carousel-item-image" role="presentation" src={props.image} />;
 }
@@ -67,11 +132,11 @@ class MainCarousel extends Component {
 
   render() {
     const carouselItems = appData.carouselItems.map((carouselItem) =>
-    <AppCarouselItem key={carouselItem.name.toLowerCase()} name={carouselItem.name} image={carouselItem.image} />
+      <AppCarouselItem key={carouselItem.name.toLowerCase()} name={carouselItem.name} image={carouselItem.image} />
     );
     return (
       <div className="App-carousel">
-        <Carousel>
+        <Carousel autoplay={true} wrapAround={true}>
           {carouselItems}
         </Carousel>
       </div>
@@ -79,8 +144,82 @@ class MainCarousel extends Component {
   }
 }
 
-class App extends Component {
+//DETAILS
 
+function HomeDetailSection(props){
+
+  const homeDetails = props.details.map((detail) =>
+    <p className="detail" key={detail.toLowerCase()}>{detail}</p>
+  );
+
+  return(
+    <div className={"details-section " + props.col}>
+      <h4 className="details-section-header">{props.name}</h4>
+      <div className="details-container">
+        {homeDetails}
+      </div>
+    </div>
+  );
+}
+
+function HomeDetails(props){
+  const homeDetailSections = appData.copy.details.sections.map((detailSection,i) =>
+    <HomeDetailSection key={detailSection.name.toLowerCase()} name={detailSection.name} details={detailSection.details} col={i%2 ? 'even' : 'odd'}/>
+  );
+
+  return(
+    <div className="App-details">
+      <h3 className="details-title">{appData.copy.details.title}</h3>
+      <div className="details-sections clearfix">
+        {homeDetailSections}
+      </div>
+    </div>
+  );
+}
+
+//3D MODEL
+
+class Model3D extends React.Component{
+
+  componentDidMount() {
+    /*console.log(this.modelframe); //MH - attempt to auto-initiate model
+    setTimeout(()=>{
+      console.log('click');
+      this.modelframe.click()
+    },5000);*/
+  }
+
+  render(){
+    return(
+      <div className="model-outer">
+        <h3 className="details-title">{appData.copy.tour.title}</h3>
+        <p className="tour-description">{appData.copy.tour.description}</p>
+        <div className="model-container">
+          <iframe ref={(iframe) => { this.modelframe = iframe; }} className="model-frame" src={appData.copy.tour.model} allowFullScreen></iframe>
+        </div>
+      </div>
+    )
+  }
+}
+
+//CONTACT
+
+function AppContact(props){
+  return(
+    <div className="App-contact">
+      <h3 className="details-title">{appData.copy.contact.title}</h3>
+      <div className="app-contact-container">
+        <p className="contact-description">{appData.copy.contact.description}</p>
+        <p className="contact-method"><span className="oswald">Phone:</span><br/> <a href={"tel:" + appData.copy.contact.tel}>{appData.copy.contact.phone}</a></p>
+        <p className="contact-method"><span className="oswald">Email:</span><br/><a href={"mailto:" + appData.copy.contact.email}>{appData.copy.contact.email}</a></p>
+      </div>
+    </div>
+  )
+}
+
+//APP
+
+class App extends Component {
 
   render() {
     return (
@@ -88,6 +227,9 @@ class App extends Component {
         <AppHeader />
         <AppMenu />
         <MainCarousel/>
+        <HomeDetails/>
+        <Model3D />
+        <AppContact />
       </div>
     );
   }
