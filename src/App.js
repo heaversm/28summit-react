@@ -13,7 +13,7 @@ const appData = {
   menuItems: [
     { name: 'Gallery'},
     { name: 'Details'},
-    { name: 'Virtual Tour'},
+    { name: 'Virtual Tour', mobile: false},
     { name: 'Contact'}
   ],
 
@@ -102,13 +102,13 @@ function AppHeader(props) {
 
 
 function AppMenuItem(props){
-  return <li className="App-menu-item"><a className="App-menu-link" href={props.name.toLowerCase()}>{props.name}</a></li>;
+  return <li className={"App-menu-item" + props.mobile}><a className="App-menu-link" href={props.name.toLowerCase()}>{props.name}</a></li>;
 }
 
 function AppMenu(props) {
 
   const menuItems = appData.menuItems.map((menuItem) =>
-    <AppMenuItem key={menuItem.name.toLowerCase()} name={menuItem.name} />
+    <AppMenuItem key={menuItem.name.toLowerCase()} name={menuItem.name} mobile={menuItem.mobile === false ? ' no-mobile' : ''} />
   );
 
   return (
@@ -191,7 +191,7 @@ class Model3D extends React.Component{
 
   render(){
     return(
-      <div className="model-outer">
+      <div className="model-outer no-mobile">
         <h3 className="details-title">{appData.copy.tour.title}</h3>
         <p className="tour-description">{appData.copy.tour.description}</p>
         <div className="model-container">

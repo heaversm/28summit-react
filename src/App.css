@@ -166,3 +166,33 @@ a:hover {
   max-width: 800px;
   margin: 0 auto;
 }
+
+@media only screen and (max-width: 580px) {
+
+  .no-mobile {
+    display: none;
+  }
+
+  .App-title {
+    font-size: 3em;
+    margin-top: .25em;
+  }
+  .App-subtitle {
+    font-size: 1.2em;
+    margin-top: .5em;
+  }
+
+  .App-menu-item {
+    font-size: 1em;
+  }
+
+  .slider-decorator-2 {
+    display: none;
+  }
+
+  .details-section {
+    float: none;
+    width: 100%;
+  }
+
+}
