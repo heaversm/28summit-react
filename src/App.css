@@ -41,6 +41,10 @@ a:hover {
   font-family: "Oswald", sans-serif;
 }
 
+.playfair {
+  font-family: "Playfair Display", serif;
+}
+
 /* SLIDESHOW */
 .slider-decorator-0 button, .slider-decorator-1 button {
   font-family: "Oswald", sans-serif;
@@ -137,6 +141,15 @@ a:hover {
   text-align: left;
 }
 
+.details-price {
+  font-size: 2em;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  padding: 1em;
+  display: inline-block;
+  margin: 0 auto;
+}
+
 /* 3D Model */
 
 .model-outer {
@@ -157,6 +170,12 @@ a:hover {
   position: absolute;
   top: 0;
   left: 0;
+}
+
+/* Maps */
+
+.map-section {
+  padding: 2em;
 }
 
 /* Contact */

@@ -14,6 +14,7 @@ const appData = {
     { name: 'Gallery'},
     { name: 'Details'},
     { name: 'Virtual Tour', mobile: false},
+    { name: 'Map'},
     { name: 'Contact'}
   ],
 
@@ -22,7 +23,8 @@ const appData = {
     { name: '2', image: '/images/carousel/loft.jpg'},
     { name: '3', image: '/images/carousel/swing.jpg'},
     { name: '4', image: '/images/carousel/shed-yard.jpg'},
-    { name: '5', image: '/images/carousel/firepit.jpg'}
+    { name: '5', image: '/images/carousel/firepit.jpg'},
+    { name: '6', image: '/images/carousel/floorplans.jpg'}
   ],
 
   copy: {
@@ -30,6 +32,7 @@ const appData = {
     subtitle: 'Modern living with upstate lakeside charm',
     details: {
       title: 'Home Details',
+      price: '179,000',
       sections: [
         { name: 'the main house',
           details: [
@@ -73,7 +76,7 @@ const appData = {
     },
     tour: {
       title: 'Virtual Tour',
-      description: 'click the model below to begin interaction',
+      description: 'click the model below to begin interaction.',
       model: 'https://3dwarehouse.sketchup.com/embed.html?mid=b49d60e2-08f9-4240-8e3d-83d3e245f915&width=1200&height=480',
       scene: 'https://3dwarehouse.sketchup.com/embed.html?mid=c25e3b04-8de0-4743-9bb0-9b7940b8f59a&width=1200&height=480'
     },
@@ -84,6 +87,20 @@ const appData = {
       phone: '503-453-0172',
       tel: '+15034530172'
     }
+  },
+  maps: {
+    title: 'Maps',
+    descripion: 'Select the map you wish to view',
+    maps: [
+      {
+        name: 'Area',
+        link: 'https://www.google.com/maps/d/embed?mid=1fNl1qw1RtYJvYz63D7LKWv8LvAM'
+      },
+      {
+        name: 'Town',
+        link: 'https://www.google.com/maps/d/embed?mid=1qoBsE-hl8BAg56bqDCU-ftX2MsM'
+      }
+    ]
   }
 }
 
@@ -173,6 +190,7 @@ function HomeDetails(props){
       <div className="details-sections clearfix">
         {homeDetailSections}
       </div>
+      <h4 className="details-price">Asking: ${appData.copy.details.price}</h4>
     </div>
   );
 }
@@ -202,6 +220,35 @@ class Model3D extends React.Component{
   }
 }
 
+//MAP
+
+function AppMapSection(props){
+
+  return(
+    <div className={"map-section " + props.col}>
+      <h4 className="map-section-header">{props.name}</h4>
+      <div className="model-container">
+        <iframe className="model-frame" src={props.link}></iframe>
+      </div>
+    </div>
+  );
+}
+
+function AppMaps(props){
+  const appMapSections = appData.maps.maps.map((mapItem,i) =>
+    <AppMapSection key={mapItem.name.toLowerCase()} name={mapItem.name} link={mapItem.link} col={i%2 ? 'even' : 'odd'}/>
+  );
+
+  return(
+    <div className="App-maps">
+      <h3 className="details-title">{appData.maps.title}</h3>
+      <div className="map-sections">
+        {appMapSections}
+      </div>
+    </div>
+  );
+}
+
 //CONTACT
 
 function AppContact(props){
@@ -229,6 +276,7 @@ class App extends Component {
         <MainCarousel/>
         <HomeDetails/>
         <Model3D />
+        <AppMaps />
         <AppContact />
       </div>
     );
