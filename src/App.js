@@ -2,9 +2,12 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import './App.css';
 import Carousel from 'nuka-carousel'; //http://kenwheeler.github.io/nuka-carousel/#/
-
+import Scroll from 'react-scroll'; //https://github.com/fisshy/react-scroll
 //DATA
 
+//SMOOTH SCROLLING
+const Link = Scroll.Link;
+const Element = Scroll.Element;
 
 
 //HEADER
@@ -22,7 +25,7 @@ function AppHeader(props) {
 
 
 function AppMenuItem(props){
-  return <li className={"App-menu-item" + props.mobile}><a className="App-menu-link" href={'#' + props.name.toLowerCase().replace(' ','_')}>{props.name}</a></li>;
+  return <li className={"App-menu-item" + props.mobile}><Link className="App-menu-link" activeClass="active" to={props.name.toLowerCase().replace(' ','_')} smooth={true} duration={500} >{props.name}</Link></li>;
 }
 
 function AppMenu(props) {
