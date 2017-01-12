@@ -22,7 +22,7 @@ function AppHeader(props) {
 
 
 function AppMenuItem(props){
-  return <li className={"App-menu-item" + props.mobile}><a className="App-menu-link" href={props.name.toLowerCase()}>{props.name}</a></li>;
+  return <li className={"App-menu-item" + props.mobile}><a className="App-menu-link" href={'#' + props.name.toLowerCase().replace(' ','_')}>{props.name}</a></li>;
 }
 
 function AppMenu(props) {
@@ -92,7 +92,7 @@ function HomeDetails(props){
   );
 
   return(
-    <div className="App-details">
+    <div id="details" className="App-details">
       <h3 className="details-title">{props.appData.copy.details.title}</h3>
       <div className="details-sections clearfix">
         {homeDetailSections}
@@ -112,7 +112,7 @@ class Model3D extends React.Component{
 
   render(props){
     return(
-      <div className="model-outer no-mobile">
+      <div id="virtual_tour" className="model-outer no-mobile">
         <h3 className="details-title">{this.props.appData.copy.tour.title}</h3>
         <p className="tour-description">{this.props.appData.copy.tour.description}</p>
         <div className="model-container">
@@ -143,7 +143,7 @@ function AppMaps(props){
   );
 
   return(
-    <div className="App-maps">
+    <div id="map" className="App-maps">
       <h3 className="details-title">{props.appData.maps.title}</h3>
       <div className="map-sections">
         {appMapSections}
@@ -156,7 +156,7 @@ function AppMaps(props){
 
 function AppContact(props){
   return(
-    <div className="App-contact">
+    <div id="contact" className="App-contact">
       <h3 className="details-title">{props.appData.copy.contact.title}</h3>
       <div className="app-contact-container">
         <p className="contact-description">{props.appData.copy.contact.description}</p>
