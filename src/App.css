@@ -106,6 +106,20 @@ a:hover {
   font-size: large;
 }
 
+/* Gallery */
+
+.App-carousel .slider {
+  padding-top: 40%;
+}
+
+.App-carousel .slider-frame {
+  position: absolute !important;  /* MH - have to override nuka's defaults. Remove if not using ajax */
+  top: 0;
+  left: 0;
+  height: 100% !important; /* MH - have to override nuka's defaults. Remove if not using ajax */
+  width: 100% !important; /* MH - have to override nuka's defaults. Remove if not using ajax */
+}
+
 /* Details */
 
 .details-title {
