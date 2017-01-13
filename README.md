@@ -10,6 +10,8 @@ This project uses the following 3rd Party Scripts.
 * [Nuka Carousel](//http://kenwheeler.github.io/nuka-carousel/#/) - a react friendly carousel
 * [React Scroll](//https://github.com/fisshy/react-scroll) - smooth scrolling to anchors
 
+## Create React App
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 ## Available Scripts
